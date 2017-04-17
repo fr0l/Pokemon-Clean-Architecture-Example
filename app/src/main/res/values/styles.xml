@@ -1,0 +1,23 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textViewStyle">@style/BlackTextView</item>
+    </style>
+
+    <style name="BlackTextView" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/black_text</item>
+    </style>
+
+    <style name="AttributeTextView" parent="BlackTextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AttributeValueTextView" parent="BlackTextView">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>

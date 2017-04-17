@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">PokemonCleanExample</string>
+    <string name="no_internet_error">An error occurred. Please try again later</string>
+    <string name="ok">OK</string>
+    <string name="loading_message">Loading…</string>
+    <string name="pokemon_list_toolbar_title">Pokémon</string>
+    <string name="welcome_message">Welcome to the Pokemon Clean Architecture example.\nTap on the screen to start</string>
+
+    <string name="pokemon_details">%1$s details</string>
+    <string name="base_xp">Base XP:</string>
+    <string name="weight">Weight:</string>
+    <string name="types">Types:</string>
+    <string name="forms">Forms:</string>
+    <string name="abilities">Abilities:</string>
+    <string name="stats">Stats:</string>
+
+    <string name="kg">kg</string>
+    <string name="xp">xp</string>
+
+    <string name="hidden">Hidden</string>
+    <string name="visible">Visible</string>
+
+    <string name="effort">Effort:</string>
+    <string name="base_stat">Base:</string>
+
+    <string name="leg_weight">The weight of this Pokémon</string>
+    <string name="leg_base_xp">The base experience gained for defeating this Pokémon</string>
+    <string name="leg_types">Types are properties for Pokémon and their moves.</string>
+    <string name="leg_abilities">A list of abilities this Pokémon could potentially have</string>
+    <string name="leg_stats">A list of base stat values for this Pokémon</string>
+</resources>
