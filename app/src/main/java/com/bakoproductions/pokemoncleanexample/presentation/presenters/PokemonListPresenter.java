@@ -22,6 +22,7 @@ public class PokemonListPresenter extends BasePresenter {
     private PokemonListScreen screen;
 
     private int totalPokemon;
+    private int lastPageSize;
     private Link nextPageLink;
     private boolean loadingNewPage;
 
@@ -54,7 +55,8 @@ public class PokemonListPresenter extends BasePresenter {
     }
 
     public void onListScrolled(int firstItem) {
-        if (firstItem > (totalPokemon / 2.0f) && !loadingNewPage && nextPageLink.getLinkUrl() != null) {
+        if (firstItem > (totalPokemon - lastPageSize / 2.0f) && !loadingNewPage && nextPageLink.getLinkUrl() != null) {
+            Log.d("Bakos", "First: " + firstItem + " > " + (totalPokemon - lastPageSize / 2.0f) + " total " + totalPokemon);
             loadMorePokemonData();
         }
     }
@@ -91,7 +93,8 @@ public class PokemonListPresenter extends BasePresenter {
 
         screen.addToPokemonList(pokemonList.getPokemonList());
 
-        totalPokemon += pokemonList.getPageSize();
+        lastPageSize = pokemonList.getPageSize();
+        totalPokemon += lastPageSize;
         nextPageLink = pokemonList.getNextLink();
     }
 

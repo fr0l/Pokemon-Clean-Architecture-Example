@@ -22,7 +22,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int VIEW_TYPE_LOADING = 1;
 
     private ArrayList<Pokemon> pokemonList;
-    private LoadingPokemonModel loadingPokemonModel;
+    private int loadingIndex = - 1;
     private PokemonClickListener listener;
 
     public PokemonListAdapter(ArrayList<Pokemon> pokemonList) {
@@ -89,15 +89,17 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void addLoading() {
-        loadingPokemonModel = new LoadingPokemonModel();
-        pokemonList.add(loadingPokemonModel);
-        notifyItemInserted(pokemonList.size() - 1);
+        pokemonList.add(new LoadingPokemonModel());
+        loadingIndex = pokemonList.size() - 1;
+        notifyItemInserted(loadingIndex);
     }
 
     public void removeLoading() {
-        int index = pokemonList.indexOf(loadingPokemonModel);
-        pokemonList.remove(index);
-        notifyItemRemoved(index);
+        if (loadingIndex != -1){
+            pokemonList.remove(loadingIndex);
+            notifyItemRemoved(loadingIndex);
+            loadingIndex = -1;
+        }
     }
 
     public void addMorePokemon(ArrayList<Pokemon> pokemonList) {

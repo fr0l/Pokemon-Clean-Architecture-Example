@@ -82,12 +82,12 @@ public class PokemonDetailsPresenter extends BasePresenter {
         }
     }
 
-    void fillPokemon(Pokemon pokemon) {
+    public void fillPokemon(Pokemon pokemon) {
         screen.setAvatar(pokemon.getAvatarUrl());
         screen.setName(pokemon.getNameFormatted());
     }
 
-    void fillDetails(PokemonDetails details) {
+    public void fillDetails(PokemonDetails details) {
         fillWeight(details);
         fillBaseXP(details);
         fillTypes(details);
@@ -95,15 +95,15 @@ public class PokemonDetailsPresenter extends BasePresenter {
         fillStats(details);
     }
 
-    void fillWeight(PokemonDetails details) {
+    public void fillWeight(PokemonDetails details) {
         screen.setWeight(details.getWeightKG() + getString(R.string.kg));
     }
 
-    void fillBaseXP(PokemonDetails details) {
+    public void fillBaseXP(PokemonDetails details) {
         screen.setBaseXP(details.getBaseXP() + getString(R.string.xp));
     }
 
-    void fillTypes(PokemonDetails details) {
+    public void fillTypes(PokemonDetails details) {
         StringBuilder builder = new StringBuilder();
 
         for (int i=0;i<details.getTypes().size();i++) {
@@ -116,7 +116,7 @@ public class PokemonDetailsPresenter extends BasePresenter {
         screen.setTypes(builder.toString());
     }
 
-    void fillAbilities(PokemonDetails details) {
+    public void fillAbilities(PokemonDetails details) {
         StringBuilder builder = new StringBuilder();
 
         for (int i=0;i<details.getAbilities().size();i++) {
@@ -134,7 +134,7 @@ public class PokemonDetailsPresenter extends BasePresenter {
         screen.setAbilities(builder.toString());
     }
 
-    void fillStats(PokemonDetails details) {
+    public void fillStats(PokemonDetails details) {
         StringBuilder builder = new StringBuilder();
 
         for (int i=0;i<details.getStats().size();i++) {
@@ -151,11 +151,11 @@ public class PokemonDetailsPresenter extends BasePresenter {
         screen.setStats(builder.toString());
     }
 
-    String getString(int resource) {
+    public String getString(int resource) {
         return screen.getContext().getString(resource);
     }
 
-    String getString(int resource, String arg) {
+    public String getString(int resource, String arg) {
         return screen.getContext().getString(resource, arg);
     }
 }

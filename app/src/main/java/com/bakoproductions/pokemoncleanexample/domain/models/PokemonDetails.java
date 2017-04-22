@@ -2,7 +2,9 @@ package com.bakoproductions.pokemoncleanexample.domain.models;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Michael on 16/4/2017.
@@ -45,9 +47,9 @@ public class PokemonDetails implements Serializable {
         double weightD = weightF - Math.floor(weightF);
 
         if (weightD == 0) {
-            return new DecimalFormat("#").format(weightF);
+            return new DecimalFormat("#", new DecimalFormatSymbols(Locale.US)).format(weightF);
         } else {
-            return new DecimalFormat("#.#").format(weightF);
+            return new DecimalFormat("#.#", new DecimalFormatSymbols(Locale.US)).format(weightF);
         }
     }
 
