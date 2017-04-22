@@ -121,12 +121,23 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
 
     @Override
     public void showListLoading() {
-        adapter.addLoading();
+        list.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.addLoading();
+            }
+        });
+
     }
 
     @Override
     public void hideListLoading() {
-        adapter.removeLoading();
+        list.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.removeLoading();
+            }
+        });
     }
 
     @Override

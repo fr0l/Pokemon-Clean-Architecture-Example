@@ -1,5 +1,7 @@
 package com.bakoproductions.pokemoncleanexample.presentation.presenters;
 
+import android.util.Log;
+
 import com.bakoproductions.pokemoncleanexample.R;
 import com.bakoproductions.pokemoncleanexample.data.repository.PokemonRepository;
 import com.bakoproductions.pokemoncleanexample.data.repository.sharedPreferences.Prefs;
