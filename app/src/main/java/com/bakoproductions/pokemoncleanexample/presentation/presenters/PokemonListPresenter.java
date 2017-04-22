@@ -68,14 +68,14 @@ public class PokemonListPresenter extends BasePresenter {
 
     void loadPokemonData() {
         screen.showLoading();
-        new GetPokemonListUseCase(20, new PokemonRepository()).execute();
+        executeUseCase(new GetPokemonListUseCase(20, new PokemonRepository()));
     }
 
     void loadMorePokemonData() {
         screen.showListLoading();
 
         loadingNewPage = true;
-        new GetPokemonListUseCase(nextPageLink, new PokemonRepository()).execute();
+        executeUseCase(new GetPokemonListUseCase(nextPageLink, new PokemonRepository()));
     }
 
     @Subscribe

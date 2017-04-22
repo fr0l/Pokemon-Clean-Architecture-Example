@@ -56,12 +56,12 @@ public class PokemonDetailsPresenter extends BasePresenter {
         screen.showLegend(getString(R.string.leg_stats));
     }
 
-    void getDetails(Pokemon pokemon) {
+    public void getDetails(Pokemon pokemon) {
         screen.showLoading();
-        new GetPokemonDetailsUseCase(
+        executeUseCase(new GetPokemonDetailsUseCase(
                 pokemon.getId(),
                 new PokemonRepository(),
-                PokemonDetailsDataStatic.get()).execute();
+                PokemonDetailsDataStatic.get()));
     }
 
     @Subscribe

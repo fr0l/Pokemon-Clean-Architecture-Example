@@ -2,6 +2,7 @@ package com.bakoproductions.pokemoncleanexample.presentation.presenters;
 
 import com.bakoproductions.pokemoncleanexample.data.repository.sharedPreferences.SharedPrefsRepository;
 import com.bakoproductions.pokemoncleanexample.domain.executors.BusProvider;
+import com.bakoproductions.pokemoncleanexample.domain.interactors.BaseUseCase;
 import com.bakoproductions.pokemoncleanexample.domain.interactors.PreferencesUseCase;
 import com.bakoproductions.pokemoncleanexample.presentation.Navigator;
 
@@ -18,6 +19,10 @@ public abstract class BasePresenter {
 
     public Navigator getNavigator() {
         return Navigator.get();
+    }
+
+    public void executeUseCase(BaseUseCase useCase) {
+        useCase.execute();
     }
 
     // -- Prefs helper methods
