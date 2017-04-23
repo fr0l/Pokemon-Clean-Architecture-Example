@@ -25,7 +25,20 @@ import com.squareup.picasso.Picasso;
  * Created by Michael on 16/4/2017.
  */
 
+/**
+ * You should use any Image Loading library right away in the activity.
+ * We usually have this "wrapper" class that delegates the requests to an
+ * underlying library like Picasso.
+ *
+ * Bear in mind that this class doesn't have to be inside the Data Layer
+ * The actual data that we need is the avatar url which is fetched from the Data Layer.
+ */
 public class AvatarLoader {
+    /**
+     * Just a simple static method to put an image from the web to the ImagView
+     * @param imageView The view that the image is added
+     * @param url The url that Picasso should request
+     */
     public static void loadAvatar(ImageView imageView, String url) {
         Picasso
                 .with(imageView.getContext())

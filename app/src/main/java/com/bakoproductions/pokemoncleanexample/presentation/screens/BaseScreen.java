@@ -22,14 +22,25 @@ import com.bakoproductions.pokemoncleanexample.domain.models.errors.Error;
 
 /**
  * Created by Michael on 14/4/2017.
+ *
+ * This is the basic things we need our UI to do in every screen
  */
-
 public interface BaseScreen {
+    // Sometimes the Presenter needs access to the Context
     Context getContext();
+
+    // The presenter decides when the initialization if the UI elements should happen
     void initializeUI();
+
+    // Need make the toolbar title naming mechanism dynamic
     void setToolbarTitle(String title);
+
+    // Two methods that are responsible for showing and hiding a loading progress
+    // when we request some data asynchronously.
     void showLoading();
     void hideLoading();
+
+    // Two methods that take care the presentation of common errors to the user
     void showNoInternetError();
     void showError(Error error);
 }

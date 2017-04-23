@@ -23,6 +23,11 @@ import android.app.Application;
  */
 
 public class PokemonApplication extends Application {
+    /*
+        We need this instance in order for the Data Layer to have access
+        to the application context. That is how you don't have to pass the Context
+        to the Domain Layer
+     */
     private static PokemonApplication INSTANCE;
 
     public static PokemonApplication getInstance() {

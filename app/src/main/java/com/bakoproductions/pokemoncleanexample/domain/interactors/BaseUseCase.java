@@ -21,8 +21,12 @@ import com.squareup.otto.Bus;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * This class is abstract because it provides the template of any use case we want to write
+ * This can become really helpful when we need to add a functionality to perform authorization
+ * requests between the calls, or to prevent the calls from executing when there is a
+ * server downtime. In any ways this is it's basic template
  */
-
 public abstract class BaseUseCase {
     private final Bus uiBus;
     private Object useCaseSubscriber;
@@ -35,14 +39,21 @@ public abstract class BaseUseCase {
     protected abstract void onExecute();
 
     public void execute() {
+        // We need the child to provide it's own subscribers
         useCaseSubscriber = setSubscriber();
+
+        // Just think what you can do if you provide some functionality here that prevents some
+        // use cases from executing when you know that the server is under heavy load
+        // We jsut simply want to execute the use case
         onExecute();
     }
 
+    // Posting data back to the presenter
     protected void post(Object event) {
         uiBus.post(event);
     }
 
+    // Registering subscribers
     protected void registerUseCaseSubscriber() {
         try {
             BusProvider.getRestBusInstance().register(useCaseSubscriber);
@@ -51,6 +62,7 @@ public abstract class BaseUseCase {
         }
     }
 
+    // Unregistering subscribers
     protected void unregisterUseCaseSubscriber() {
         try {
             BusProvider.getRestBusInstance().unregister(useCaseSubscriber);

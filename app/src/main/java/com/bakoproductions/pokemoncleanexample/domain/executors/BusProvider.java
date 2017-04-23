@@ -21,18 +21,30 @@ import com.squareup.otto.ThreadEnforcer;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * This is where the instance of every bus is held.
  */
-
 public class BusProvider {
     private static final Bus REST_BUS = new Bus(ThreadEnforcer.ANY);
     private static final Bus UI_BUS = new Bus();
 
+    // There is no reason to initiate this class
     private BusProvider() {}
 
+    /**
+     * Provides the Bus instance that operates between the Data Layer
+     * and the Domain Layer
+     * @return Bus that enforces any threads
+     */
     public static Bus getRestBusInstance() {
         return REST_BUS;
     }
 
+    /**
+     * Provides the Bus that operates between the Domain Layer
+     * and the Presentation Layer
+     * @return Bus that enforces the main thread
+     */
     public static Bus getUIBusInstance() {
         return UI_BUS;
     }

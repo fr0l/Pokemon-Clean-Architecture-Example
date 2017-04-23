@@ -42,16 +42,29 @@ public class PokemonListPresenter extends BasePresenter {
     private Link nextPageLink;
     private boolean loadingNewPage;
 
+    /**
+     * We usually keep the constructor simple.
+     * @param screen The interface that helps this presenter
+     *               present a ui to any given underlying android component
+     */
     public PokemonListPresenter(PokemonListScreen screen) {
         this.screen = screen;
     }
 
+    /**
+     * All these stuff need to be outside of the constructor,
+     * because the actual presenter instance is not created inside the
+     * it's body
+     */
     public void initialize() {
+        // This class starts listening for events future Use Case invocations
         register();
 
         screen.initializeUI();
         screen.setToolbarTitle(screen.getContext().getString(R.string.pokemon_list_toolbar_title));
 
+        // We need a shared preference here, check the method getSharedPreferencesBoolean(...)
+        // @ BaseUsePresenter
         if (!getSharedPreferencesBoolean(Prefs.WELCOME_SHOWN)) {
             showWelcomeUI();
         } else {
@@ -60,16 +73,27 @@ public class PokemonListPresenter extends BasePresenter {
     }
 
     public void destroy() {
+        // Unregister subscribers. If we forget this then every @Subscribe method
+        // will be called more than one times per Use Case
         unregister();
 
+        // Removing cashed data that we don't need anymore
         PokemonDetailsDataStatic.get().removeAll();
     }
 
+    /**
+     * Here is where we decide what to do when the user clickes
+     * the welcome panel
+     */
     public void onWelcomeInteracted() {
         screen.hideWelcomePanel();
         loadPokemonData();
     }
 
+    /**
+     * Here is where we decide if we want to load more data when the list is scrolling
+     * @param firstItem The first visible item of the RecyclerView
+     */
     public void onListScrolled(int firstItem) {
         if (firstItem > (totalPokemon - lastPageSize / 2.0f) && !loadingNewPage && nextPageLink.getLinkUrl() != null) {
             Log.d("Bakos", "First: " + firstItem + " > " + (totalPokemon - lastPageSize / 2.0f) + " total " + totalPokemon);
@@ -77,6 +101,10 @@ public class PokemonListPresenter extends BasePresenter {
         }
     }
 
+    /**
+     * Is called when the user clicks on a Pokemon
+     * @param pokemon The pokemon that the user clicked from the list
+     */
     public void onPokemonInteracted(Pokemon pokemon) {
         getNavigator().navigateToDetails(screen.getContext(), pokemon);
     }
@@ -87,28 +115,42 @@ public class PokemonListPresenter extends BasePresenter {
     }
 
     void loadPokemonData() {
+        // We need to show the loading progress before request the data
         screen.showLoading();
+
+        // Requesting the data, while providing how many pokemon we want to fetch first (20)
         executeUseCase(new GetPokemonListUseCase(20, new PokemonRepository()));
     }
 
     void loadMorePokemonData() {
+        // We need to show a loading progress on the bottom of the list
         screen.showListLoading();
 
         loadingNewPage = true;
+
+        // Requesting the next page of data
         executeUseCase(new GetPokemonListUseCase(nextPageLink, new PokemonRepository()));
     }
 
     @Subscribe
     public void onPokemonListReceived(PokemonList pokemonList) {
+        /*
+          Both GetPokemonListUseCase invocations end here, either we requested the first page
+          or every next page
+         */
         if (totalPokemon == 0) {
+            // First time hide the screen loading
             screen.hideLoading();
         } else {
+            // Every next time we remove the bottom list loading progress
             loadingNewPage = false;
             screen.hideListLoading();
         }
 
+        // Adding the fetched data to the RecyclerView
         screen.addToPokemonList(pokemonList.getPokemonList());
 
+        // We need these variables for infinite scrolling
         lastPageSize = pokemonList.getPageSize();
         totalPokemon += lastPageSize;
         nextPageLink = pokemonList.getNextLink();
@@ -116,6 +158,9 @@ public class PokemonListPresenter extends BasePresenter {
 
     @Subscribe
     public void onPokemonListError(PokemonListError error) {
+        // Both GetPokemonListUseCase invocations end here
+
+        // Hiding the appropriate loading progress
         if (totalPokemon == 0) {
             screen.hideLoading();
         } else {
@@ -123,6 +168,7 @@ public class PokemonListPresenter extends BasePresenter {
             screen.hideListLoading();
         }
 
+        // Showing the appropriate dialog
         if (error.isNetworkError()) {
             screen.showNoInternetError();
         } else {

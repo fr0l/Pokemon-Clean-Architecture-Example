@@ -24,20 +24,19 @@ import com.bakoproductions.pokemoncleanexample.presentation.components.activitie
 
 /**
  * Created by Michael on 17/4/2017.
+ *
+ * This class is responsible for the navigation between screens
+ *
+ * All your context.startActivity(...) code usually goes here
+ * This is a good place to put your navigation logic as you may sometimes need different ways to
+ * start the same activity. It can also be mocked pretty easily for tests
  */
-
 public class Navigator {
-    private static Navigator INSTANCE;
-
-    public static Navigator get() {
-        if (INSTANCE == null) {
-            INSTANCE = new Navigator();
-        }
-
-        return INSTANCE;
-    }
+    public Navigator() {}
 
     public void navigateToDetails(Context context, Pokemon pokemon) {
+        // Let the PokemonDetailsActivity provide us with the appropriate intent it needs
+        // in order to start
         Intent intent = PokemonDetailsActivity.getCallingIntent(context, pokemon);
         context.startActivity(intent);
     }

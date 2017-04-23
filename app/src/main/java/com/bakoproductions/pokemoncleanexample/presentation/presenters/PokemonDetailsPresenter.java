@@ -35,16 +35,31 @@ import com.squareup.otto.Subscribe;
 public class PokemonDetailsPresenter extends BasePresenter {
     private PokemonDetailsScreen screen;
 
+    /**
+     * Provides the presenter instance
+     *
+     * @param screen The reference to the screen implementor
+     */
     public PokemonDetailsPresenter(PokemonDetailsScreen screen) {
         this.screen = screen;
     }
 
+    /**
+     * In order for this presenter to start, we need to provide the Pokemon we want to present
+     * @param pokemon The instance of the Pokemon we need to show the details for.
+     */
     public void initialize(Pokemon pokemon) {
         screen.initializeUI();
         screen.setToolbarTitle(getString(R.string.pokemon_details, pokemon.getNameFormatted()));
+
+        // Registering subscribers
         register();
 
+        // Filling the data we can show without the need for calling a use case such as the name
+        // and the avatar
         fillPokemon(pokemon);
+
+        // Getting the rest of the details
         getDetails(pokemon);
     }
 
@@ -73,7 +88,11 @@ public class PokemonDetailsPresenter extends BasePresenter {
     }
 
     public void getDetails(Pokemon pokemon) {
+        // Showing loading before requesting the data
         screen.showLoading();
+
+        // This use case supports cashing. If the details of this pokemon exist in the cash then
+        // we will receive them instantly in the onPokemonDetailsReceived(...) method
         executeUseCase(new GetPokemonDetailsUseCase(
                 pokemon.getId(),
                 new PokemonRepository(),
@@ -82,8 +101,11 @@ public class PokemonDetailsPresenter extends BasePresenter {
 
     @Subscribe
     public void onPokemonDetailsReceived(PokemonDetails details) {
+        // Hiding the loading progress
         screen.hideLoading();
         screen.showDetailsPanel();
+
+        // And filling the details
         fillDetails(details);
     }
 
@@ -167,6 +189,8 @@ public class PokemonDetailsPresenter extends BasePresenter {
         screen.setStats(builder.toString());
     }
 
+    // We usually want to use the context in the presenter. In order to mock it easily
+    // we provide a method that gets the string for us.
     public String getString(int resource) {
         return screen.getContext().getString(resource);
     }

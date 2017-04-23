@@ -25,10 +25,14 @@ import java.util.ArrayList;
  */
 
 public interface PokemonListScreen extends BaseScreen {
+    // Two methods that are responsible to showing a welcome screen
     void showWelcomePanel();
     void hideWelcomePanel();
 
+    // The implementor needs to add more elements to the list
     void addToPokemonList(ArrayList<Pokemon> pokemonList);
+
+    // Two methods that show/hide the bottom list loading progress
     void showListLoading();
     void hideListLoading();
 }

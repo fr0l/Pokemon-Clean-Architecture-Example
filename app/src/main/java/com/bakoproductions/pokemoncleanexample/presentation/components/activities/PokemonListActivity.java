@@ -36,6 +36,11 @@ import com.bakoproductions.pokemoncleanexample.presentation.screens.PokemonListS
 
 import java.util.ArrayList;
 
+/**
+ * Welcome to the Pokemon Clean Architecture Example Project
+ *
+ * This is the first screen that appears when the app stars
+ */
 public class PokemonListActivity extends AppCompatActivity implements PokemonListScreen, View.OnClickListener {
 
     private TextView welcomeMessage;
@@ -45,12 +50,22 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
     private LinearLayoutManager listLayoutManager;
     private PokemonListAdapter adapter;
 
+    // Needing a reference to the presenter
     private PokemonListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /**
+         * We don't usually setContentView(...) before we initialize the presenter
+         * We need the presenter to request it. With this way we are able to control
+         * the view lifecycle events like GoogleMap.onMapReady() callback etc.
+         *
+         * There is no map in this example but this is what we usually do.
+         *
+         * see the initializeUI() method
+         */
         initializePresenter();
     }
 
@@ -61,6 +76,9 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
         presenter.destroy();
     }
 
+    /**
+     * Below are the implementations of the PokemonListScreen
+     */
     @Override
     public Context getContext() {
         return this;
@@ -68,6 +86,7 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
 
     @Override
     public void initializeUI() {
+        // This is where the ui is constructed
         setContentView(R.layout.act_pokemon_list);
 
         welcomeMessage = (TextView) findViewById(R.id.welcomeText);
@@ -121,6 +140,7 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
 
     @Override
     public void addToPokemonList(ArrayList<Pokemon> pokemonList) {
+        // When this method is hit for the first time, the adapter gets initialized first
         if (adapter == null) {
             adapter = new PokemonListAdapter(pokemonList);
             adapter.setClickListener(new PokemonListAdapter.PokemonClickListener() {
@@ -131,6 +151,8 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
             });
             list.setAdapter(adapter);
         } else {
+            // We don't need to initialize again, but inform the RecyclerView that
+            // more rows are added
             adapter.addMorePokemon(pokemonList);
         }
     }
@@ -158,16 +180,20 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
 
     @Override
     public void onClick(View v) {
+        // We delegate the interaction of the outside world (user)
+        // To the presenter in order to let it decide who to deal with it
         if (v.getId() == R.id.welcomeText) {
             presenter.onWelcomeInteracted();
         }
     }
 
     private void initializePresenter() {
+        // Creating the presenter
         presenter = new PokemonListPresenter(this);
         presenter.initialize();
     }
 
+    // This is another interaction similar to the click events
     private class ListScrollListener extends RecyclerView.OnScrollListener {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

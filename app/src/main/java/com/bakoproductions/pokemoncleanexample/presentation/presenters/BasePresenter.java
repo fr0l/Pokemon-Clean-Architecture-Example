@@ -24,33 +24,48 @@ import com.bakoproductions.pokemoncleanexample.presentation.Navigator;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * A simple BasePresenter implementation that
+ * provides some common functionality for all the presenters
  */
-
 public abstract class BasePresenter {
     private PreferencesUseCase prefsUseCase;
+    private Navigator navigator;
 
     public BasePresenter() {
         prefsUseCase = new PreferencesUseCase(SharedPrefsRepository.getInstance());
     }
 
     public Navigator getNavigator() {
-        return Navigator.get();
+        if (navigator == null) {
+            navigator = new Navigator();
+        }
+
+        return navigator;
     }
 
+    // Helps at tests to mock the use case invocation
     public void executeUseCase(BaseUseCase useCase) {
         useCase.execute();
     }
 
-    // -- Prefs helper methods
+    // =================== PREFERENCES ======================
+    // That how you can get a string from the preferences
     public void storeSharedPreferences(String key, boolean value) {
         prefsUseCase.savePref(key, value);
     }
 
+    // That how you can get a boolean from the preferences
     public boolean getSharedPreferencesBoolean(String key) {
         return prefsUseCase.getBooleanPref(key);
     }
 
     // =================== SUBSCRIBERS ======================
+
+    /*
+        Need these methods to register and unregister the presenters in order
+        to listen to events that happen on the UI Bus
+     */
     public void register() {
         try {
             BusProvider.getUIBusInstance().register(this);

@@ -38,13 +38,24 @@ import com.bakoproductions.pokemoncleanexample.presentation.screens.PokemonDetai
 
 /**
  * Created by Michael on 17/4/2017.
+ *
+ * This is the second activity of the project.
  */
-
 public class PokemonDetailsActivity extends AppCompatActivity implements
                                                                     PokemonDetailsScreen,
                                                                     View.OnClickListener {
     private static final String KEY_EXTRA_POKEMON = "extra_pokemon";
 
+    /**
+     * It is a good practise to provide a "static factory method" for your Activity. Although you
+     * cannot add a static factory method over the activity's constructor, you can guide the
+     * developer that requests the PokemonDetailsActivity to provide a Pokemon in order to run
+     * properly.
+     *
+     * @param context The context needed to create the Intent
+     * @param pokemon The Pokemon that we need to display
+     * @return the actual Intent that has all the data we need in order to initiate this activity
+     */
     public static Intent getCallingIntent(Context context, Pokemon pokemon) {
         Intent intent = new Intent(context, PokemonDetailsActivity.class);
         intent.putExtra(KEY_EXTRA_POKEMON, pokemon);
@@ -67,13 +78,17 @@ public class PokemonDetailsActivity extends AppCompatActivity implements
 
     private View progressPanel;
 
+    // We need the reference to the presenter
     private PokemonDetailsPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Getting the pokemon data
         Pokemon pokemon = (Pokemon) getIntent().getSerializableExtra(KEY_EXTRA_POKEMON);
+
+        // Creating the presenter
         initializePresenter(pokemon);
     }
 
@@ -83,6 +98,10 @@ public class PokemonDetailsActivity extends AppCompatActivity implements
 
         presenter.destroy();
     }
+
+    /*
+        Screen method implementations
+     */
 
     @Override
     public Context getContext() {
@@ -188,6 +207,9 @@ public class PokemonDetailsActivity extends AppCompatActivity implements
         Dialogs.showMessageDialog(this, message);
     }
 
+    /*
+        Click events delegate to the presenter
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
