@@ -26,7 +26,10 @@ import java.io.Serializable;
 public class Error implements Serializable {
     public static final int NETWORK_ERROR_CODE = -1;
 
+    // Keep track of the error's status code
     private int status;
+
+    // An error message that we need to display to the user
     private String message;
 
     public int getStatus() {

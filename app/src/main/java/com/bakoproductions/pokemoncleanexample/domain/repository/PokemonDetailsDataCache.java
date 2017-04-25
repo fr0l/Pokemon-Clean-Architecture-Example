@@ -20,8 +20,9 @@ import com.bakoproductions.pokemoncleanexample.domain.models.PokemonDetails;
 
 /**
  * Created by Michael on 17/4/2017.
+ *
+ * These methods must be implemented by a cashing mechanism in the data layer
  */
-
 public interface PokemonDetailsDataCache {
     void addPokemonDetails(PokemonDetails details);
 

@@ -20,14 +20,19 @@ import java.io.Serializable;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * Holds the basic data of a Pokemon
  */
-
 public class Pokemon implements Serializable {
     private String id;
     private String name;
     private String nameFormatted;
     private Link url;
 
+    /**
+     * Finds and returns the id of the Pokemon. The id comes from the end of the url
+     * @return the id of the Pokemon
+     */
     public String getId() {
         if (id != null) {
             return id;
@@ -46,6 +51,10 @@ public class Pokemon implements Serializable {
         return name;
     }
 
+    /**
+     * Formats the name of the Pokemon in order to be human readable
+     * @return the real name of the Pokemon
+     */
     public String getNameFormatted() {
         if (name == null) {
             return null;
@@ -81,6 +90,11 @@ public class Pokemon implements Serializable {
         this.url = url;
     }
 
+    /**
+     * The pokeapi.co has banned the stripe urls. This page pokemondb.net provides most of the
+     * pokemon avatars
+     * @return The pokemondb avatar url
+     */
     public String getAvatarUrl() {
         return "https://img.pokemondb.net/artwork/" + name + ".jpg";
     }

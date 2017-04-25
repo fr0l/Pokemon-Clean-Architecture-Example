@@ -19,6 +19,9 @@ package com.bakoproductions.pokemoncleanexample.domain.models.errors;
 /**
  * Created by Michael on 16/4/2017.
  */
-
 public class PokemonDetailsError extends Error {
+    // Normally you don't have to declare an error object for every use case
+    // But if you use Otto you have to.
+    // By that you can ensure that every use case will only listen to what it needs to listen
+    // and this is a downside of using Otto
 }

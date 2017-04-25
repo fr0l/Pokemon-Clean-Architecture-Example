@@ -20,8 +20,9 @@ import com.bakoproductions.pokemoncleanexample.domain.models.Link;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * This data source needs to be implemented by the data layer
  */
-
 public interface PokemonDataSource {
     void getPokemonList(int limit);
     void getPokemonList(Link link);

@@ -20,8 +20,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * The implementor must store the data to a key - value type storage
  */
-
 public interface PreferencesDataSource {
     int getIntFromPreferences(String key);
 

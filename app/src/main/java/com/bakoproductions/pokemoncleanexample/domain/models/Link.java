@@ -20,8 +20,9 @@ import java.io.Serializable;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * This class is needed to keep track of any link url for pagination
  */
-
 public class Link implements Serializable {
     private String linkUrl;
 
@@ -33,6 +34,9 @@ public class Link implements Serializable {
         this.linkUrl = linkUrl;
     }
 
+    /*
+        Any link is valid as long it does not contain empty or null string
+     */
     public boolean isValid() {
         return linkUrl != null && !linkUrl.isEmpty();
     }

@@ -24,8 +24,9 @@ import java.util.Locale;
 
 /**
  * Created by Michael on 16/4/2017.
+ *
+ * The data that the PokemonDetailsPresenter needs in order to operate
  */
-
 public class PokemonDetails implements Serializable {
     private String id = "";
     private int weight;
@@ -57,6 +58,10 @@ public class PokemonDetails implements Serializable {
         return weight;
     }
 
+    /**
+     * Formats the weight to be displayed to the user. The weight is formatted to kg.
+     * @return The weight formatted to kg.
+     */
     public String getWeightKG() {
         float weightF = weight / 10.0f;
 
