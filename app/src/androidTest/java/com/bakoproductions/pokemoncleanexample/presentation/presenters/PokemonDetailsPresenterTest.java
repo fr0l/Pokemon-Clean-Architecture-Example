@@ -159,6 +159,7 @@ public class PokemonDetailsPresenterTest {
 
         presenter.onPokemonDetailsError(error);
         verify(screen).hideLoading();
+        verify(screen).showNameAndAvatarPanel();
         verify(screen).showNoInternetError();
         verify(screen, never()).showError(error);
     }
@@ -170,6 +171,7 @@ public class PokemonDetailsPresenterTest {
 
         presenter.onPokemonDetailsError(error);
         verify(screen).hideLoading();
+        verify(screen).showNameAndAvatarPanel();
         verify(screen, never()).showNoInternetError();
         verify(screen).showError(error);
     }

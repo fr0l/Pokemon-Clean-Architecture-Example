@@ -16,7 +16,6 @@
 
 package com.bakoproductions.pokemoncleanexample.presentation.components.activities;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -154,16 +153,27 @@ public class PokemonDetailsActivity extends AppCompatActivity implements
 
     @Override
     public void showNoInternetError() {
-        Dialogs.showNoInternet(this);
+        Dialogs.createNoInternet(this).show();
     }
 
     @Override
     public void showError(Error error) {
-        Dialogs.showError(this, error);
+        Dialogs.createError(this, error).show();
+    }
+
+    @Override
+    public void showNameAndAvatarPanel() {
+        AnimationUtils.startFadeInAnimator(pokemonDetailsPanel);
     }
 
     @Override
     public void showDetailsPanel() {
+        pokemonWeightPanel.setVisibility(View.VISIBLE);
+        pokemonBaseXPPanel.setVisibility(View.VISIBLE);
+        pokemonTypesPanel.setVisibility(View.VISIBLE);
+        pokemonAbilitiesPanel.setVisibility(View.VISIBLE);
+        pokemonStatsPanel.setVisibility(View.VISIBLE);
+
         AnimationUtils.startFadeInAnimator(pokemonDetailsPanel);
     }
 
@@ -204,7 +214,7 @@ public class PokemonDetailsActivity extends AppCompatActivity implements
 
     @Override
     public void showLegend(String message) {
-        Dialogs.showMessageDialog(this, message);
+        Dialogs.createMessageDialog(this, message).show();
     }
 
     /*

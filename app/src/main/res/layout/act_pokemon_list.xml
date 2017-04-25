@@ -9,6 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <LinearLayout
+        android:id="@+id/noInternetEmptyListPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/no_internet_error"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/noInternetRetryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/retry_message"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="match_parent"

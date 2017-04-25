@@ -112,6 +112,7 @@ public class PokemonDetailsPresenter extends BasePresenter {
     @Subscribe
     public void onPokemonDetailsError(PokemonDetailsError error) {
         screen.hideLoading();
+        screen.showNameAndAvatarPanel();
 
         if (error.isNetworkError()) {
             screen.showNoInternetError();

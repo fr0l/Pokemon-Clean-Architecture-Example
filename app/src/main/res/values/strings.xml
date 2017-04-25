@@ -3,6 +3,7 @@
     <string name="no_internet_error">An error occurred. Please try again later</string>
     <string name="ok">OK</string>
     <string name="loading_message">Loading…</string>
+    <string name="retry_message">Retry</string>
     <string name="pokemon_list_toolbar_title">Pokémon</string>
     <string name="welcome_message">Welcome to the Pokemon Clean Architecture example.\nTap on the screen to start</string>
 

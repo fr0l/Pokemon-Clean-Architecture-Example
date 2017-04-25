@@ -28,15 +28,15 @@ import com.bakoproductions.pokemoncleanexample.domain.models.errors.Error;
  */
 
 public class Dialogs {
-    public static void showNoInternet(Context context) {
-        showMessageDialog(context, context.getString(R.string.no_internet_error));
+    public static AlertDialog createNoInternet(Context context) {
+        return createMessageDialog(context, context.getString(R.string.no_internet_error));
     }
 
-    public static void showError(Context context, Error error) {
-        showMessageDialog(context, error.getMessage());
+    public static AlertDialog createError(Context context, Error error) {
+        return createMessageDialog(context, error.getMessage());
     }
 
-    public static void showMessageDialog(Context context, String message) {
+    public static AlertDialog createMessageDialog(Context context, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setMessage(message)
                 .setCancelable(false)
@@ -46,6 +46,7 @@ public class Dialogs {
                         dialog.dismiss();
                     }
                 });
-        builder.show();
+
+        return builder.create();
     }
 }

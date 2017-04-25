@@ -21,6 +21,7 @@ package com.bakoproductions.pokemoncleanexample.presentation.screens;
  */
 
 public interface PokemonDetailsScreen extends BaseScreen {
+    void showNameAndAvatarPanel();
     void showDetailsPanel();
     void setAvatar(String avatarUrl);
     void setName(String name);

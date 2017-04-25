@@ -35,4 +35,8 @@ public interface PokemonListScreen extends BaseScreen {
     // Two methods that show/hide the bottom list loading progress
     void showListLoading();
     void hideListLoading();
+
+    // Two methods that show the error with a retry button
+    void showNoInternetPanel();
+    void hideNoInternetPanel();
 }

@@ -82,11 +82,19 @@ public class PokemonListPresenter extends BasePresenter {
     }
 
     /**
-     * Here is where we decide what to do when the user clickes
+     * Here is where we decide what to do when the user clicks
      * the welcome panel
      */
     public void onWelcomeInteracted() {
         screen.hideWelcomePanel();
+        loadPokemonData();
+    }
+
+    /**
+     * We decide what to do when the retry button is pressed
+     */
+    public void onNoInternetRetryInteracted() {
+        screen.hideNoInternetPanel();
         loadPokemonData();
     }
 
@@ -163,16 +171,17 @@ public class PokemonListPresenter extends BasePresenter {
         // Hiding the appropriate loading progress
         if (totalPokemon == 0) {
             screen.hideLoading();
+            screen.showNoInternetPanel();
         } else {
             loadingNewPage = false;
             screen.hideListLoading();
-        }
 
-        // Showing the appropriate dialog
-        if (error.isNetworkError()) {
-            screen.showNoInternetError();
-        } else {
-            screen.showError(error);
+            // Showing the appropriate dialog
+            if (error.isNetworkError()) {
+                screen.showNoInternetError();
+            } else {
+                screen.showError(error);
+            }
         }
     }
 }

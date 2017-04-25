@@ -16,6 +16,7 @@
 
 package com.bakoproductions.pokemoncleanexample.presentation.components.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bakoproductions.pokemoncleanexample.R;
@@ -43,12 +45,18 @@ import java.util.ArrayList;
  */
 public class PokemonListActivity extends AppCompatActivity implements PokemonListScreen, View.OnClickListener {
 
+    private View noInternetPanel;
+    private Button noInternetRetry;
+
     private TextView welcomeMessage;
     private RecyclerView list;
     private View progressPanel;
 
     private LinearLayoutManager listLayoutManager;
     private PokemonListAdapter adapter;
+
+    private AlertDialog noInternetDialog;
+    private AlertDialog errorDialog;
 
     // Needing a reference to the presenter
     private PokemonListPresenter presenter;
@@ -89,6 +97,10 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
         // This is where the ui is constructed
         setContentView(R.layout.act_pokemon_list);
 
+        noInternetPanel = findViewById(R.id.noInternetEmptyListPanel);
+        noInternetRetry = (Button) findViewById(R.id.noInternetRetryButton);
+        noInternetRetry.setOnClickListener(this);
+
         welcomeMessage = (TextView) findViewById(R.id.welcomeText);
         welcomeMessage.setOnClickListener(this);
 
@@ -120,12 +132,42 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
 
     @Override
     public void showNoInternetError() {
-        Dialogs.showNoInternet(this);
+        if (errorDialog != null && errorDialog.isShowing()) {
+            errorDialog.dismiss();
+        }
+
+        if (noInternetDialog != null && noInternetDialog.isShowing()) {
+            return;
+        } else if (noInternetDialog == null) {
+            noInternetDialog = Dialogs.createNoInternet(this);
+        }
+
+        noInternetDialog.show();
     }
 
     @Override
     public void showError(Error error) {
-        Dialogs.showError(this, error);
+        if (noInternetDialog != null && noInternetDialog.isShowing()) {
+            noInternetDialog.dismiss();
+        }
+
+        if (errorDialog != null && errorDialog.isShowing()) {
+            return;
+        } else if (errorDialog == null) {
+            errorDialog = Dialogs.createError(this, error);
+        }
+
+        errorDialog.show();
+    }
+
+    @Override
+    public void showNoInternetPanel() {
+        noInternetPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoInternetPanel() {
+        noInternetPanel.setVisibility(View.GONE);
     }
 
     @Override
@@ -184,6 +226,8 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
         // To the presenter in order to let it decide who to deal with it
         if (v.getId() == R.id.welcomeText) {
             presenter.onWelcomeInteracted();
+        } else if (v.getId() == R.id.noInternetRetryButton) {
+            presenter.onNoInternetRetryInteracted();
         }
     }
 
