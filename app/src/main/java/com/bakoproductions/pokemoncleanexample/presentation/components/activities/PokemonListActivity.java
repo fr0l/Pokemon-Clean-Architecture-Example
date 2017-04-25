@@ -57,14 +57,14 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /**
-         * We don't usually setContentView(...) before we initialize the presenter
-         * We need the presenter to request it. With this way we are able to control
-         * the view lifecycle events like GoogleMap.onMapReady() callback etc.
-         *
-         * There is no map in this example but this is what we usually do.
-         *
-         * see the initializeUI() method
+        /*
+          We don't usually setContentView(...) before we initialize the presenter
+          We need the presenter to request it. With this way we are able to control
+          the view lifecycle events like GoogleMap.onMapReady() callback etc...
+
+          There is no map in this example but this is what we usually do.
+
+          see the initializeUI() method
          */
         initializePresenter();
     }
@@ -76,8 +76,8 @@ public class PokemonListActivity extends AppCompatActivity implements PokemonLis
         presenter.destroy();
     }
 
-    /**
-     * Below are the implementations of the PokemonListScreen
+    /*
+      Below are the implementations of the PokemonListScreen
      */
     @Override
     public Context getContext() {

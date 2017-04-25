@@ -20,8 +20,9 @@ import java.io.Serializable;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * The general error object
  */
-
 public class Error implements Serializable {
     public static final int NETWORK_ERROR_CODE = -1;
 

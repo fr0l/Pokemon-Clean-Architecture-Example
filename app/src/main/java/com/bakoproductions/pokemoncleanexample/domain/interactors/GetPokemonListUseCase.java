@@ -24,35 +24,52 @@ import com.squareup.otto.Subscribe;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * This use case is responsible for getting a page of Pokemons
  */
-
 public class GetPokemonListUseCase extends BaseUseCase {
     private int limit;
     private Link nextLink;
 
     private PokemonDataSource dataSource;
 
+    /**
+     * The constructor we call to create the first page request
+     * @param limit How many data we want to fetch the first time. This is also used by the rest api
+     *              to know how many data will be included to every next page.
+     * @param dataSource The implementor of the actual request
+     */
     public GetPokemonListUseCase(int limit, PokemonDataSource dataSource) {
         this.limit = limit;
         this.dataSource = dataSource;
     }
 
+    /**
+     * The constructor we call to create every next page request
+     * @param nextLink The next page's link
+     * @param dataSource The implementor of the actual request
+     */
     public GetPokemonListUseCase(Link nextLink, PokemonDataSource dataSource) {
         this.nextLink = nextLink;
         this.dataSource = dataSource;
     }
 
+    /*
+        The parent requests to get the subscribers when it's constructor is hit
+     */
     @Override
     protected Object setSubscriber() {
         return new Object() {
             @Subscribe
             public void onPokemonListReceived(PokemonList pokemonList) {
+                // Just post back the response and unregister the listener
                 post(pokemonList);
                 unregisterUseCaseSubscriber();
             }
 
             @Subscribe
             public void onPokemonListError(PokemonListError error) {
+                // Just post back the error and unregister the listener
                 post(error);
                 unregisterUseCaseSubscriber();
             }
@@ -61,16 +78,15 @@ public class GetPokemonListUseCase extends BaseUseCase {
 
     @Override
     protected void onExecute() {
+        // Register the listener
         registerUseCaseSubscriber();
 
         if (nextLink != null) {
+            // If the request was made by the second constructor get the next page
             dataSource.getPokemonList(nextLink);
         } else {
-            getFistPokemonData();
+            // Otherwise get the first page
+            dataSource.getPokemonList(limit);
         }
-    }
-
-    private void getFistPokemonData() {
-        dataSource.getPokemonList(limit);
     }
 }

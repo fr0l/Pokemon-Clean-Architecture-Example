@@ -31,8 +31,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Michael on 16/4/2017.
+ *
+ * A simple implementation of an adapter that binds the data to the pokemon list.
+ * This adapter also binds the loading progress view when needed.
  */
-
 public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_POKEMON = 0;
     private static final int VIEW_TYPE_LOADING = 1;

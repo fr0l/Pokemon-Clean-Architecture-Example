@@ -22,14 +22,25 @@ import java.util.ArrayList;
 
 /**
  * Created by Michael on 15/4/2017.
+ *
+ * This is a simpler use case as everything happens synchronously. There are no subscribers here.
  */
-
 public class PreferencesUseCase {
     private final PreferencesDataSource dataSource;
 
+    /**
+     * The creator of this use case
+     * @param dataSource The implementor of the request. (In this case the implementor will always
+     *                   be the SharedPrefsRepository)
+     */
     public PreferencesUseCase(PreferencesDataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    /*
+        All the methods below support some of the most common operations when we store key - value
+        preferences in a data source.
+     */
 
     public int getIntPref(String key) {
         return dataSource.getIntFromPreferences(key);

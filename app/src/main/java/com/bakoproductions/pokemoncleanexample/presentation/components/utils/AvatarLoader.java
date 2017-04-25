@@ -35,7 +35,7 @@ import com.squareup.picasso.Picasso;
  */
 public class AvatarLoader {
     /**
-     * Just a simple static method to put an image from the web to the ImagView
+     * Just a simple static method to put an image from the web to the ImageView
      * @param imageView The view that the image is added
      * @param url The url that Picasso should request
      */
