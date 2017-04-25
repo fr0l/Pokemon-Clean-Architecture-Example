@@ -26,6 +26,12 @@ import com.bakoproductions.pokemoncleanexample.domain.models.PokemonList;
  */
 
 public class PokemonListMapper {
+    /**
+     * Transforms the PokemonListResponse response to the PokemonList model
+     *
+     * @param response The data layer's GSON entity
+     * @return The domain layer's model
+     */
     public PokemonList transform(PokemonListResponse response) {
         PokemonList result = new PokemonList();
 

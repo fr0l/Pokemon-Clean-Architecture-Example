@@ -23,6 +23,11 @@ import com.bakoproductions.pokemoncleanexample.domain.models.Link;
  */
 
 public class LinkMapper {
+    /**
+     * Transforms a string url to a Link object
+     * @param url A web url
+     * @return The class that holds that url
+     */
     public Link transform(String url) {
         Link link = new Link();
         link.setLinkUrl(url);

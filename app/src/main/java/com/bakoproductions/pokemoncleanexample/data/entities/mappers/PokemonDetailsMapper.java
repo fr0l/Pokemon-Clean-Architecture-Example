@@ -22,7 +22,6 @@ import com.bakoproductions.pokemoncleanexample.domain.models.PokemonDetails;
 /**
  * Created by Michael on 16/4/2017.
  */
-
 public class PokemonDetailsMapper {
     public PokemonDetails transform(String id, PokemonDetailsResponse response) {
         PokemonDetails details = new PokemonDetails();

@@ -25,6 +25,15 @@ import retrofit2.Response;
  */
 
 public class ErrorMapper {
+    /**
+     * Transforms the response to an Error
+     *
+     * @param error The error to be sent back to the data layer
+     * @param response The retrofit response
+     * @param <T> The class of the response
+     * @param <E> The error class
+     * @return The error object with its data filled
+     */
     public <T, E extends Error> E transform(E error, Response<T> response) {
         error.setStatus(response.code());
         error.setMessage(response.message());
@@ -32,6 +41,13 @@ public class ErrorMapper {
         return error;
     }
 
+    /**
+     * Transforms the exception to an Error
+     * @param error The error to be sent back to the data layer
+     * @param throwable The exception from Retrofit
+     * @param <E> The error class
+     * @return
+     */
     public <E extends Error> E transform(E error, Throwable throwable) {
         error.setStatus(Error.NETWORK_ERROR_CODE);
         error.setMessage(throwable.getMessage());
